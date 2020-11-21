@@ -1,5 +1,6 @@
 git init
-git remote add origin + UARL
+git remote add Project_name + UARL
+git config --global user.email "boundouq.ayoub.tsi@gmail.com"
 git add .
 git commit -m "first_commit"
-git push origin master
+git push Project_name master

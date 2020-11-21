@@ -2,18 +2,17 @@
 ###                                     NORMALISE                                 ###
 #####################################################################################
 
-from array import array
+
 import png
 from math import sqrt
-import copy
 import numpy as np
 
 # The number of the picture that we will normalize
-IMAGE_NUM =100
+IMAGE_NUM = 0
 
 # Output files
-image_name = 'Results/' + str(IMAGE_NUM) + 'Image_' + str(IMAGE_NUM) + '.png'
-image_matrix = 'Results/' + str(IMAGE_NUM) + 'Matrix_' + str(IMAGE_NUM) + '.txt'
+image_name = 'Results/Image_' + str(IMAGE_NUM) + '.png'
+image_matrix = 'Results/Normalization_Image_' + str(IMAGE_NUM) + '.txt'
 
 image_source = open("data/test_batch.bin", "rb")
 
@@ -29,6 +28,7 @@ blue = list()
 non_blue = list()
 rgb = list()
 non_rgb = list()
+zeros = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 #####################################################################################
 
@@ -39,10 +39,13 @@ def normalize(image, nor_list, non_nor_list):
     size = 24 * 24
 
     # Cut out image
+    nor_list.append(zeros)
+
     for i in range(0,32):
         if i > 3 and i < 28:
             l=[]
             n_l=[]
+            l.append(0)
             for j in range(0,32):
                 if j > 3 and j < 28:
                     a = int.from_bytes(image.read(1), byteorder='big')
@@ -50,28 +53,30 @@ def normalize(image, nor_list, non_nor_list):
                     n_l.append(a)
                 else:
                     image.read(1)
+            l.append(0)
+
             nor_list.append(l)
             non_nor_list.append(n_l)
         else:
             image.read(32)
+    nor_list.append(zeros)
 
     # Calculate average value
-    for i in range(0, 24):
-        for j in range(0, 24):
+    for i in range(1, 25):
+        for j in range(1, 25):
             sum += nor_list[i][j]
     average = sum / size
-
+    
     # Calculate standard deviation
-    for i in range(0, 24):
-        for j in range(0, 24):
+    for i in range(1, 25):
+        for j in range(1, 25):
             deviation += (nor_list[i][j] - average) ** 2
     deviation = sqrt(deviation / size)
-
+    
     # Normalization
-    for i in range(0, 24):
-        for j in range(0, 24):
+    for i in range(1, 25):
+        for j in range(1, 25):
             nor_list[i][j] = (nor_list[i][j] - average) / max(deviation , 1/sqrt(size))
-
 
 ####################################################################################            
 
@@ -96,10 +101,9 @@ def RGB_image(lred, lnon_red, lgreen, lnon_green, lblue, lnon_blue, lrgb, lnon_r
 # Create normalized image matrix
 def matrix(rgb_list):
     m = open(image_matrix, "w")
-
     for y in range(0, 3):
-        for i in range(0, 24):
-            for j in range(0, 24):
+        for i in range(0, 26):
+            for j in range(0, 26):
                 m.write(str(rgb_list[y][i][j]) + ' ')
             m.write('\n')
         m.write('\n')
@@ -124,5 +128,3 @@ RGB_image(red, non_red, green, non_green, blue, non_blue, rgb, non_rgb)
 matrix(rgb)
 
 image(non_rgb)
-
-
