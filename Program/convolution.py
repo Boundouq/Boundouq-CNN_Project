@@ -3,44 +3,45 @@
 #####################################################################################
 
 # The number of the picture that we will normalize
-IMAGE_NUM = 0
+#IMAGE_NUM = 0
 
 # Convolution stage between 0 and 2
-STAGE = 0
+#STAGE = 0
 
 #The output image size
-X = [24, 12, 6]
-W = [3, 64, 32]
-B = [64, 32, 20]
+#X = [24, 12, 6]
+#W = [3, 64, 32]
+#B = [64, 32, 20]
 
 # Output files
-image_convolution = 'Results/Convolution_Image_'+ str(IMAGE_NUM) + '_' + str(X[STAGE]) + '.txt'
-
+#image_convolution = 'Results/Convolution_Image_'+ str(IMAGE_NUM) + '_' + str(X[STAGE]) + '.txt'
 
 # Input files
-image_matrix = 'Results/Normalization_Image_' + str(IMAGE_NUM) + '.txt'
-matrix = open(image_matrix, 'r')
-kernel = open('data/CNN_coeff_3x3.txt', "r")
+#image_matrix = 'Results/Normalization_Image_' + str(IMAGE_NUM) + '.txt'
+#matrix = open(image_matrix, 'r')
+#kernel = open('data/CNN_coeff_3x3.txt', "r")
 
 # Output convolution matrix
-out_convolution = list()
+#out_convolution = list()
 
 # Parameters
-input = list()
-biases = list()
-weights = list()
+#input = list()
+#biases = list()
+#weights = list()
 
 #####################################################################################
 
 # Get kernel matrix (biases and weights), for convolution nember "stage"
-def get_kernel_matrix(kernel, stage, b, w):
+def get_kernel_matrix(kernel, stage, B, W, b, w):
     cnt = 0
+    kernel.seek(0,0)
     while(1):
         line = kernel.readline()
-        mot = line.split(':')
+        mot = line.split(': ')
         if mot[0] == 'tensor_name':
             cnt += 1
-        if cnt == 2*stage+1:
+        if cnt == (2*stage) + 1:
+            print (str(cnt))
             # get biases
             for i in range (B[stage] // 6 + 1):
                 line = kernel.readline()
@@ -79,7 +80,8 @@ def get_kernel_matrix(kernel, stage, b, w):
 #####################################################################################
 
 # Get image matrix
-def get_matrix(image_in, stage, image_out):
+def get_matrix(image_matrix, stage, X,image_out):
+    image_in = open(image_matrix, 'r')
     cnt = 0
     while(cnt < 3):
         cnt += 1
@@ -97,14 +99,14 @@ def get_matrix(image_in, stage, image_out):
 #####################################################################################
 
 # Calculate convolution
-def convolution(image, stage, kernl, bias, out):
+def convolution(image, stage, kernl, bias, B,X, out):
     for c in range (B[stage]):
         co = []
         co.append(image[0][0])
-        for i in range (1, 25):
+        for i in range (1, X[stage] + 1):
             li = []
             li.append(0)
-            for j in range (1, 25):
+            for j in range (1, X[stage] + 1):
                 s = 0
                 for l in range (3):
                     for m in range (-1, 2):
@@ -123,8 +125,7 @@ def convolution(image, stage, kernl, bias, out):
 #####################################################################################
 
 # Create output convolution matrix file
-
-def convo_matrix(out, stage):
+def convo_matrix(image_convolution,out,B,X, stage):
     c = open(image_convolution, "w")
     for y in range(B[stage]):
         for i in range(X[stage]+2):
@@ -136,10 +137,10 @@ def convo_matrix(out, stage):
 
 #####################################################################################
 
-get_kernel_matrix(kernel,STAGE, biases, weights)
+#get_kernel_matrix(kernel,STAGE, biases, weights)
 
-get_matrix(matrix, STAGE, input)
+#get_matrix(matrix, STAGE, input)
 
-convolution(input,STAGE,weights,biases,out_convolution)
+#convolution(input,STAGE,weights,biases,out_convolution)
 
-convo_matrix(out_convolution, STAGE)
+#convo_matrix(out_convolution, STAGE)

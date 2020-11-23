@@ -2,36 +2,36 @@
 ###                                     NORMALISE                                 ###
 #####################################################################################
 
-
 import png
 from math import sqrt
-import numpy as np
+#import numpy as np
 
 # The number of the picture that we will normalize
-IMAGE_NUM = 0
+#IMAGE_NUM = 0
 
 # Output files
-image_name = 'Results/Image_' + str(IMAGE_NUM) + '.png'
-image_matrix = 'Results/Normalization_Image_' + str(IMAGE_NUM) + '.txt'
+#image_name = 'Results/Image_' + str(IMAGE_NUM) + '.png'
+#image_matrix = 'Results/Normalization_Image_' + str(IMAGE_NUM) + '.txt'
 
-image_source = open("data/test_batch.bin", "rb")
+#image_source = open("data/test_batch.bin", "rb")
 
 # Read the picture number IMAGE_NUM
-image_source.read(IMAGE_NUM * 3072 + 1)
+#image_source.read(IMAGE_NUM * 3072 + 1)
 
 # Normalised and non-normalised RGB list
-red = list()
-non_red = list()
-green = list()
-non_green = list()
-blue = list()
-non_blue = list()
-rgb = list()
-non_rgb = list()
-zeros = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+#red = list()
+#non_red = list()
+#green = list()
+#non_green = list()
+#blue = list()
+#non_blue = list()
+#rgb = list()
+#non_rgb = list()
+#zeros = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 #####################################################################################
 
+# Normalization
 def normalize(image, nor_list, non_nor_list):
     sum = 0
     average = 0
@@ -39,6 +39,7 @@ def normalize(image, nor_list, non_nor_list):
     size = 24 * 24
 
     # Cut out image
+    zeros =[0 for i in range(26)]
     nor_list.append(zeros)
 
     for i in range(0,32):
@@ -99,7 +100,7 @@ def RGB_image(lred, lnon_red, lgreen, lnon_green, lblue, lnon_blue, lrgb, lnon_r
 ####################################################################################
 
 # Create normalized image matrix
-def matrix(rgb_list):
+def matrix(image_matrix,rgb_list):
     m = open(image_matrix, "w")
     for y in range(0, 3):
         for i in range(0, 26):
@@ -112,19 +113,19 @@ def matrix(rgb_list):
 ####################################################################################
 
 # Create non-normalized image
-def image(n_rgb):
+def image(image_name,n_rgb):
     im = open(image_name, 'wb')
     w = png.Writer(24, 24, greyscale=False)
     w.write(im, n_rgb) ; im.close()
 
 ####################################################################################
 
-normalize(image_source, red, non_red)
-normalize(image_source, green, non_green)
-normalize(image_source, blue, non_blue)
+#normalize(image_source, red, non_red)
+#normalize(image_source, green, non_green)
+#normalize(image_source, blue, non_blue)
 
-RGB_image(red, non_red, green, non_green, blue, non_blue, rgb, non_rgb)
+#RGB_image(red, non_red, green, non_green, blue, non_blue, rgb, non_rgb)
 
-matrix(rgb)
+#matrix(rgb)
 
-image(non_rgb)
+#image(non_rgb)
