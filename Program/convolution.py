@@ -62,7 +62,7 @@ def get_kernel_matrix(kernel, stage, B, W, b, w):
                         z = []
                         for i in range (B[stage] // 4):
                             line = kernel.readline()
-                            line = line[6:]
+                            line = line[5:]
                             mot = line.split()
                             index = line.find(']')
                             if index != -1:
@@ -95,7 +95,6 @@ def get_matrix(image_matrix, stage, X,image_out):
             map.append(list)
         image_out.append(map)
         line = image_in.readline()
-
 #####################################################################################
 
 # Calculate convolution

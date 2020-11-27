@@ -14,7 +14,7 @@ import numpy as np
 IMAGE_NUM = 0
 
 # Convolution stage between 0 and 2
-STAGE = 0
+STAGE = 5
 
 #The output image size
 X = [24, 12, 6]
@@ -37,7 +37,7 @@ image_convolution_20 = 'Results/Convolution_Image_'+ str(IMAGE_NUM) + '_' + str(
 image_maxpool_20 = 'Results/Maxpool_Image_'+ str(IMAGE_NUM) + '_' + str(B[2]) + '.txt'
 
 
-image_source.read(IMAGE_NUM * 3072 + 1)
+image_source.read(IMAGE_NUM * 3073 + 1)
 #matrix = open(image_matrix, 'r')
 
 # Normalised and non-normalised RGB list
@@ -148,7 +148,6 @@ tab_out_20 = maxpool.maxpool(tab_20,image_maxpool_20)
 
 # Reshape
 vecteur = maxpool.reshapee(image_maxpool_20)
-print(vecteur)
 
 # Get kernel matrix (biases and weights), for convolution nember "stage"
 maxpool.get_coeff(kernel, 3, B, W, b, w)
@@ -157,3 +156,14 @@ maxpool.get_coeff(kernel, 3, B, W, b, w)
 result = maxpool.fully_conn(w, vecteur,b)
 
 print(result)
+
+tab = []
+for elm in result:
+    tab.append(elm)
+t = []
+for i in range (9):
+    a = float(max(tab))
+    t.append(tab.index(a))
+    tab[tab.index(a)] = -100
+print (t)
+
