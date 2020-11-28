@@ -110,7 +110,7 @@ def convolution(image, stage, kernl, bias, B,X, out):
                 for l in range (3):
                     for m in range (-1, 2):
                         for n in range (-1, 2):
-                            s += image[l][i+m][j+n] * kernl[n+1][m+1][l][c]
+                            s += image[l][i+m][j+n] * kernl[l][m+1][n+1][c]
                 s += bias[c]
                 # RELU
                 if s < 0:

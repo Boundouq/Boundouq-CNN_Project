@@ -22,7 +22,7 @@ W = [3, 64, 32, 180]
 B = [64, 32, 20, 10]
 
 # Input files
-image_source = open("data/test_batch.bin", "rb")
+image_source = open("data/image.bin", "rb")
 kernel = open('data/CNN_coeff_3x3.txt', "r")
 
 
@@ -37,7 +37,8 @@ image_convolution_20 = 'Results/Convolution_Image_'+ str(IMAGE_NUM) + '_' + str(
 image_maxpool_20 = 'Results/Maxpool_Image_'+ str(IMAGE_NUM) + '_' + str(B[2]) + '.txt'
 
 
-image_source.read(IMAGE_NUM * 3073 + 1)
+image_source.read(IMAGE_NUM * 3072)
+print ("classe " +str(int.from_bytes(image_source.read(1), byteorder='big')))
 #matrix = open(image_matrix, 'r')
 
 # Normalised and non-normalised RGB list

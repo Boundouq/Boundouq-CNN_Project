@@ -125,12 +125,22 @@ def get_coeff(kernel, stage, B, W, b, w):
                     for elm in mot:
                         z.append(float(elm))
                 w.append(z)
+            print(len(w))
             break;  
 
 #muliplication matrice vect
 def fully_conn(matrice,vect,bias):
-    mat = np.dot(vect,matrice)
-    return (mat + bias)
+    list = []
+    conn = []
+    for i in range (10):
+        sum = 0
+        for j in range (180):
+            sum += matrice[j][i] * vect[j]
+        list.append(sum)
+    for i in range (10):
+        conn.append(list[i] + bias[i])
+    #mat = np.dot(vect,matrice)
+    return (conn)
 
 
 #test
