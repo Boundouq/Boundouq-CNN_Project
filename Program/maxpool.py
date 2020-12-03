@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from math import exp
 
 #fonction qui prend en entrée un fichier texte (image à la sortie de la conv) et le transforme en tableau (il faut préciser la taille de la 3eme dim en param)
 def convert2array(fichier,taille):
@@ -28,33 +29,46 @@ def maxpool(tableau3D,nom_fichier):
     dim3 = len(tableau3D)
     dim2 = len(tableau3D[0])
     dim1 = len(tableau3D[0][0])
-    tab_sortie = np.zeros(dim3*int(dim2/2-1)*int(dim1/2-1))
-    l = 0
-    v_dim = int((dim2 - 2)/2 + 2)
+    v_dim = int((dim2)/2 + 2)
+    if dim2 == 6 : v_dim = 3
+
+    tab_sortie = np.zeros(dim3*v_dim*v_dim)
+    tab_sortie.resize((dim3,v_dim,v_dim))
     zeros = [0 for i in range(v_dim)]
     for k in range(dim3):
-        if k!= 0 :
-            f.write("\n")
-        for elm in zeros:
-            f.write(str(elm) + ' ')
-        f.write("\n")
+        l = 0
+        if dim2 != 6 :
+            l = 1
+            for y in range (v_dim):
+                tab_sortie[k][0][y] = 0.0
         for j in range(0,dim2,2):
-            if j!= 0 :
-                f.write(' 0')
-                f.write("\n")
-            f.write('0 ')
+            c = 0
+            if dim2 != 6 :
+                c = 1
+                tab_sortie[k][l][0] = 0.0
             for i in range(0,dim1,2):
                 if (i<dim1-2) and (j<dim2-2):
-                    tab_sortie[l]= max(tableau3D[k][j][i],tableau3D[k][j][i+1],tableau3D[k][j][i+2],tableau3D[k][j+1][i],tableau3D[k][j+1][i+1],tableau3D[k][j+1][i+2],tableau3D[k][j+2][i],tableau3D[k][j+2][i+1],tableau3D[k][j+2][i+2])
-                    if (l%(int(dim1/2-1)) == 0):
-                        f.write(str(tab_sortie[l]))
-                    else:
-                        f.write(" " + str(tab_sortie[l]))
-                    l += 1
-        for elm in range (v_dim - 1):
-            f.write('0' + ' ')
+                    tab_sortie[k][l][c] = (max(tableau3D[k][j][i],tableau3D[k][j][i+1],tableau3D[k][j][i+2],tableau3D[k][j+1][i],tableau3D[k][j+1][i+1],tableau3D[k][j+1][i+2],tableau3D[k][j+2][i],tableau3D[k][j+2][i+1],tableau3D[k][j+2][i+2]))
+                elif (i==dim1-2) and (j == dim2-2):
+                    tab_sortie[k][l][c] = (max(tableau3D[k][j][i],tableau3D[k][j][i+1],tableau3D[k][j+1][i],tableau3D[k][j+1][i+1]))
+                elif (i == dim1-2):
+                    tab_sortie[k][l][c] = (max(tableau3D[k][j][i],tableau3D[k][j][i+1],tableau3D[k][j+1][i],tableau3D[k][j+1][i+1],tableau3D[k][j+2][i],tableau3D[k][j+2][i+1]))
+                elif (j == dim2-2):
+                    tab_sortie[k][l][c] = (max(tableau3D[k][j][i],tableau3D[k][j][i+1],tableau3D[k][j][i+2],tableau3D[k][j+1][i],tableau3D[k][j+1][i+1],tableau3D[k][j+1][i+2]))
+
+                c += 1
+            if dim2 != 6 : tab_sortie[k][l][v_dim - 1] = 0.0
+            l += 1
+            if dim2 != 6 :
+                for y in range (v_dim):
+                    tab_sortie[k][v_dim - 1][y] = 0.0
+
+    for y in range(dim3):
+        for i in range(v_dim):
+            for j in range(v_dim):
+                f.write(str(tab_sortie[y][i][j]) + ' ')
+            f.write('\n')
         f.write('\n')
-    tab_sortie.resize((dim3,int(dim2/2-1),int(dim1/2-1)))
     f.close()
     return tab_sortie
 
@@ -73,21 +87,21 @@ def maxpool(tableau3D,nom_fichier):
 
 
 # fonction qui tranforme un fichier texte de la matrice à la sortie du maxpool 3*3*20 en vecteur de taille 180
-def reshapee(fichier):
-    f = open(fichier,"r")
-    tab = []
-
-    for k in range(20):
-        for j in range(5):
-            s= f.readline()
-            l = []
-            if (j!= 0 and j!=4):
-                l= s.split()
-                l= l[1:4]
-                for elm in l :
-                    tab.append(float(elm))           
-        f.readline()
-    return tab
+def reshapee(tab):
+    # f = open(fichier,"r")
+    # tab = []
+    #
+    # for k in range(20):
+    #     for j in range(3):
+    #         s= f.readline()
+    #         l = []
+    #         #if (j!= 0 and j!=4):
+    #         l= s.split()
+    #             #l= l[1:4]
+    #         for elm in l :
+    #             tab.append(float(elm))
+    #     f.readline()
+    return tab.reshape(180)
 
 # Get kernel matrix (biases and weights), for convolution nember "stage"
 def get_coeff(kernel, stage, B, W, b, w):
@@ -99,7 +113,6 @@ def get_coeff(kernel, stage, B, W, b, w):
         if mot[0] == 'tensor_name':
             cnt += 1
         if cnt == (2*stage) + 1:
-            print(str(cnt))
             # get biases
             for i in range (B[stage] // 6 + 1):
                 line = kernel.readline()
@@ -125,13 +138,15 @@ def get_coeff(kernel, stage, B, W, b, w):
                     for elm in mot:
                         z.append(float(elm))
                 w.append(z)
-            print(len(w))
-            break;  
+            break;
 
 #muliplication matrice vect
 def fully_conn(matrice,vect,bias):
     list = []
     conn = []
+    prov = []
+    sum = 0
+    c = 0
     for i in range (10):
         sum = 0
         for j in range (180):
@@ -139,6 +154,23 @@ def fully_conn(matrice,vect,bias):
         list.append(sum)
     for i in range (10):
         conn.append(list[i] + bias[i])
+        sum += exp(conn[i])
+    ###
+    for i in range (10):
+        prov.append(exp(conn[i]) / sum)
+        c += prov[i]
+    print ("SoftMax : " + str(prov))
+    print ("Sum SoftMax " +str(c))
+    tab = []
+    for elm in prov:
+        tab.append(elm)
+    t = []
+    for i in range (9):
+        a = float(max(tab))
+        t.append(tab.index(a))
+        tab[tab.index(a)] = -100
+    print ("Ordre SM : " + str(t))
+    ###
     #mat = np.dot(vect,matrice)
     return (conn)
 

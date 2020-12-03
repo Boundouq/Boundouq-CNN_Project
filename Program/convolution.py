@@ -41,7 +41,6 @@ def get_kernel_matrix(kernel, stage, B, W, b, w):
         if mot[0] == 'tensor_name':
             cnt += 1
         if cnt == (2*stage) + 1:
-            print (str(cnt))
             # get biases
             for i in range (B[stage] // 6 + 1):
                 line = kernel.readline()
@@ -75,7 +74,7 @@ def get_kernel_matrix(kernel, stage, B, W, b, w):
                     x.append(y)
                 line = kernel.readline()
                 w.append(x)
-            break;    
+            break;
 
 #####################################################################################
 
@@ -101,24 +100,19 @@ def get_matrix(image_matrix, stage, X,image_out):
 def convolution(image, stage, kernl, bias, B,X, out):
     for c in range (B[stage]):
         co = []
-        co.append(image[0][0])
-        for i in range (1, X[stage] + 1):
+        for i in range (0, X[stage]):
             li = []
-            li.append(0)
-            for j in range (1, X[stage] + 1):
-                s = 0
+            for j in range (0, X[stage]):
+                s = bias[c]
                 for l in range (3):
-                    for m in range (-1, 2):
-                        for n in range (-1, 2):
-                            s += image[l][i+m][j+n] * kernl[l][m+1][n+1][c]
-                s += bias[c]
+                    for m in range (3):
+                        for n in range (3):
+                            s += image[l][i+m][j+n] * kernl[m][n][l][c]
                 # RELU
-                if s < 0:
-                    s = 0
+                s = max(0,s)
+
                 li.append(s)
-            li.append(0)
             co.append(li)
-        co.append(image[0][0])
         out.append(co)
 
 #####################################################################################
@@ -127,8 +121,8 @@ def convolution(image, stage, kernl, bias, B,X, out):
 def convo_matrix(image_convolution,out,B,X, stage):
     c = open(image_convolution, "w")
     for y in range(B[stage]):
-        for i in range(X[stage]+2):
-            for j in range(X[stage]+2):
+        for i in range(X[stage]):
+            for j in range(X[stage]):
                 c.write(str(out[y][i][j]) + ' ')
             c.write('\n')
         c.write('\n')

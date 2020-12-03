@@ -48,6 +48,7 @@ def normalize(image, nor_list, non_nor_list):
             for j in range(0, 32):
                 if j > 3 and j < 28:
                     a = int.from_bytes(image.read(1), byteorder='big')
+                    assert a <= 255
                     l.append(a)
                     n_l.append(a)
                 else:

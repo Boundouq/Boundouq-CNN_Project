@@ -22,9 +22,8 @@ W = [3, 64, 32, 180]
 B = [64, 32, 20, 10]
 
 # Input files
-image_source = open("data/image.bin", "rb")
+image_source = open("data/test_batch.bin", "rb")
 kernel = open('data/CNN_coeff_3x3.txt', "r")
-
 
 # Output files
 image_name = 'Results/Image_' + str(IMAGE_NUM) + '.png'
@@ -37,7 +36,7 @@ image_convolution_20 = 'Results/Convolution_Image_'+ str(IMAGE_NUM) + '_' + str(
 image_maxpool_20 = 'Results/Maxpool_Image_'+ str(IMAGE_NUM) + '_' + str(B[2]) + '.txt'
 
 
-image_source.read(IMAGE_NUM * 3072)
+image_source.read(IMAGE_NUM * 3073 )
 print ("classe " +str(int.from_bytes(image_source.read(1), byteorder='big')))
 #matrix = open(image_matrix, 'r')
 
@@ -148,7 +147,7 @@ tab_out_20 = maxpool.maxpool(tab_20,image_maxpool_20)
 #####################################################################################
 
 # Reshape
-vecteur = maxpool.reshapee(image_maxpool_20)
+vecteur = maxpool.reshapee(tab_out_20)
 
 # Get kernel matrix (biases and weights), for convolution nember "stage"
 maxpool.get_coeff(kernel, 3, B, W, b, w)
@@ -167,4 +166,3 @@ for i in range (9):
     t.append(tab.index(a))
     tab[tab.index(a)] = -100
 print (t)
-
