@@ -4,6 +4,6 @@
 
 #define SIZE 24*24*3
 
-void normalization (
-
-)
+// void normalization (
+//
+// )

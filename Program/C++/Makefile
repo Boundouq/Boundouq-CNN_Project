@@ -16,7 +16,7 @@ TARGET = test
 CC = g++
 RM = rm
 INCLUDE =-I $(INCDIR)
-CFLAGS  = -std=c++11 -Wall -Werror $(INCLUDE)
+CFLAGS  = -std=c++11 $(INCLUDE)
 
 
 SRCDIR=src

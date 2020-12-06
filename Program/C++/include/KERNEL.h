@@ -1,6 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////////////
 ///                                    KERNEL                                     ///
 /////////////////////////////////////////////////////////////////////////////////////
+#ifndef __KERNEL_H__
+#define __KERNEL_H__
 
 #define KERNEL_SIZE 3
 #define WEIGHT_1_NUM 3
@@ -12,6 +14,11 @@
 #define WEIGHT_4_NUM 180
 #define BIASE_4_NUM 10
 
+#define IMAGE_1_WIDTH 26
+#define IMAGE_2_WIDTH 14
+#define IMAGE_3_WIDTH 8
+
+#define MAXPOOL_SIZE 3
 
 static double biase_1_double[BIASE_1_NUM] = {
   -0.96178979, -0.23917986, -0.23212402, -0.2245342,  -1.71852744, -0.25244606,
@@ -7101,3 +7108,5 @@ static double weight_4_double[WEIGHT_4_NUM][BIASE_4_NUM] = {{
   ,{2.77840812e-02,-1.29483417e-02,6.51101470e-02,-3.86175662e-02
   ,5.91667406e-02,6.47545140e-03,-3.21667679e-02,8.65688622e-02
   ,-7.45184869e-02,2.34040506e-02}};
+
+#endif
