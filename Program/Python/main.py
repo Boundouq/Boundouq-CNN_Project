@@ -11,7 +11,7 @@ from math import sqrt
 import numpy as np
 
 # The number of the picture that we will normalize
-IMAGE_NUM = 1
+IMAGE_NUM = 0
 
 # Convolution stage between 0 and 2
 STAGE = 5
@@ -25,8 +25,14 @@ B = [64, 32, 20, 10]
 image_source = open("Python/data/test_batch.bin", "rb")
 kernel = open('Python/data/CNN_coeff_3x3.txt', "r")
 
+image_source.read(IMAGE_NUM * 3073 )
+classe = int.from_bytes(image_source.read(1), byteorder='big')
+print ("classe " +str(classe))
+#matrix = open(image_matrix, 'r')
+
+
 # Output files
-image_name = 'Python/Results/Image_' + str(IMAGE_NUM) + '.png'
+image_name = 'Python/Results/Image_' + str(IMAGE_NUM) + '_' + str(classe) + '.png'
 image_matrix = 'Python/Results/Normalization_Image_' + str(IMAGE_NUM) + '.txt'
 image_convolution_64 = 'Python/Results/Convolution_Image_'+ str(IMAGE_NUM) + '_' + str(X[0]) + '.txt'
 image_maxpool_64 = 'Python/Results/Maxpool_Image_'+ str(IMAGE_NUM) + '_' + str(B[0]) + '.txt'
@@ -35,10 +41,6 @@ image_maxpool_32 = 'Python/Results/Maxpool_Image_' + str(IMAGE_NUM) + '_' + str(
 image_convolution_20 = 'Python/Results/Convolution_Image_'+ str(IMAGE_NUM) + '_' + str(X[2]) + '.txt'
 image_maxpool_20 = 'Python/Results/Maxpool_Image_'+ str(IMAGE_NUM) + '_' + str(B[2]) + '.txt'
 
-
-image_source.read(IMAGE_NUM * 3073 )
-print ("classe " +str(int.from_bytes(image_source.read(1), byteorder='big')))
-#matrix = open(image_matrix, 'r')
 
 # Normalised and non-normalised RGB list
 # red = list()

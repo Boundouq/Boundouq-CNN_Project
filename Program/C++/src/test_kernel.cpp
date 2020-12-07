@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
   string caract;
   string delimiter = " ";
   vector<string> v ;
-  file.open("Normalization_Image_1.txt");
+  file.open("Normalization_Image_9.txt");
   cout << file.is_open() << endl;
   double image_in[3][26][26];
   double conv_1_out[BIASE_1_NUM][IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2];
@@ -65,6 +65,7 @@ int main(int argc, char **argv) {
   convolution_3(maxp_2_out,weight_3_double,biase_3_double,conv_3_out);
   maxpool_3(conv_3_out,maxp_3_out);
   reshape(maxp_3_out,resh_out);
+  // for (auto elm : resh_out) cout << elm << endl;
   perception(resh_out,weight_4_double,biase_4_double,perce_out);
   ofstream f;
   f.open("out.txt");
