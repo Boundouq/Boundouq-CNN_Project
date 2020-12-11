@@ -4,6 +4,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "Read_image.h"
+#include "Normalization.h"
 #include "Convolution.h"
 #include "Maxpool.h"
 #include "Reshape.h"
@@ -33,9 +35,12 @@ int main(int argc, char **argv) {
   string caract;
   string delimiter = " ";
   vector<string> v ;
-  file.open("Normalization_Image_9.txt");
+  string image;
+  image = "Image_1_8.ppm";
+  file.open(image);
   cout << file.is_open() << endl;
-  double image_in[3][26][26];
+  double image_in[WEIGHT_1_NUM][IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2];
+  double norm_image[WEIGHT_1_NUM][IMAGE_1_WIDTH][IMAGE_1_WIDTH];
   double conv_1_out[BIASE_1_NUM][IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2];
   double maxp_1_out[WEIGHT_2_NUM][IMAGE_2_WIDTH][IMAGE_2_WIDTH];
   double conv_2_out[BIASE_2_NUM][IMAGE_2_WIDTH - 2][IMAGE_2_WIDTH - 2];
@@ -45,20 +50,22 @@ int main(int argc, char **argv) {
   double resh_out[WEIGHT_4_NUM];
   double perce_out[BIASE_4_NUM];
 
-  for (int cnt = 0;cnt <3;cnt++){
-    for (int i =0;i <26; i++){
-      getline(file, caract);
-
-      v = split (caract, delimiter);
-
-      for (int j = 0;j<26;j ++){
-        stringstream(v[j]) >> image_in[cnt][i][j];
-      }
-      v.clear();
-    }
-    getline(file, caract);
-  }
-  convolution_1(image_in,weight_1_double,biase_1_double,conv_1_out);
+  // for (int cnt = 0;cnt <3;cnt++){
+  //   for (int i =0;i <26; i++){
+  //     getline(file, caract);
+  //
+  //     v = split (caract, delimiter);
+  //
+  //     for (int j = 0;j<26;j ++){
+  //       stringstream(v[j]) >> image_in[cnt][i][j];
+  //     }
+  //     v.clear();
+  //   }
+  //   getline(file, caract);
+  // }
+  read_image(image,image_in);
+  normalization(image_in,norm_image);
+  convolution_1(norm_image,weight_1_double,biase_1_double,conv_1_out);
   maxpool_1(conv_1_out, maxp_1_out);
   convolution_2(maxp_1_out,weight_2_double,biase_2_double,conv_2_out);
   maxpool_2(conv_2_out,maxp_2_out);
@@ -69,8 +76,16 @@ int main(int argc, char **argv) {
   perception(resh_out,weight_4_double,biase_4_double,perce_out);
   ofstream f;
   f.open("out.txt");
+  for (int  l = 0; l < WEIGHT_1_NUM; l++){
+    for (int i = 0; i < IMAGE_1_WIDTH; i++){
+      for(int j = 0; j < IMAGE_1_WIDTH; j++){
+          f << norm_image[l][i][j] << ' ';
+      }
+      f << endl;
+    }
+    f << endl;
+  }
   for (int c = 0; c < BIASE_4_NUM; c++){
-          f << perce_out[c] << ' ';
           cout << perce_out[c] << ' ';
   }
   cout << endl;

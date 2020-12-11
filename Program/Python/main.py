@@ -11,7 +11,7 @@ from math import sqrt
 import numpy as np
 
 # The number of the picture that we will normalize
-IMAGE_NUM = 0
+IMAGE_NUM = 10
 
 # Convolution stage between 0 and 2
 STAGE = 5

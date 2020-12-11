@@ -1,0 +1,22 @@
+/////////////////////////////////////////////////////////////////////////////////////
+///                                  READ_IMAGE.CPP                               ///
+/////////////////////////////////////////////////////////////////////////////////////
+
+#ifndef __READ_IMAGE_H__
+#define __READ_IMAGE_H__
+
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include "KERNEL.h"
+
+using namespace std;
+
+void read_image(
+  string    image_in,
+  double    image_out[WEIGHT_1_NUM][IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2]
+);
+
+
+#endif
