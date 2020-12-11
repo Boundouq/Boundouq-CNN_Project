@@ -57,17 +57,17 @@ void normalization(
     }
   }
 
-  ofstream simg_out("img_out_n.ppm");
-
-  simg_out << "P3" << endl;
-  simg_out << 24<< " ";
-  simg_out <<  24<< endl;
-  simg_out <<  255 << endl;
-  for (int i = 1; i < IMAGE_1_WIDTH - 1; i++){
-    for(int j = 1 ; j < IMAGE_1_WIDTH - 1; j++){
-      simg_out << (int)image_out[0][i][j] <<endl;
-      simg_out << (int)image_out[1][i][j] <<endl;
-      simg_out << (int)image_out[2][i][j] <<endl;
-    }
-  }
+  // ofstream simg_out("img_out_n.ppm");
+  //
+  // simg_out << "P3" << endl;
+  // simg_out << 24<< " ";
+  // simg_out <<  24<< endl;
+  // simg_out <<  255 << endl;
+  // for (int i = 1; i < IMAGE_1_WIDTH - 1; i++){
+  //   for(int j = 1 ; j < IMAGE_1_WIDTH - 1; j++){
+  //     simg_out << (int)image_out[0][i][j] <<endl;
+  //     simg_out << (int)image_out[1][i][j] <<endl;
+  //     simg_out << (int)image_out[2][i][j] <<endl;
+  //   }
+  // }
 }
