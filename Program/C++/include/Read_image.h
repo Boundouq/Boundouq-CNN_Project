@@ -15,7 +15,7 @@ using namespace std;
 
 void read_image(
   string    image_in,
-  double    image_out[WEIGHT_1_NUM][IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2]
+  double    image_out[IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2][WEIGHT_1_NUM]
 );
 
 
