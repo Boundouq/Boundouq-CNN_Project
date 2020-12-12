@@ -28,7 +28,6 @@ void read_image(
   if (image.is_open()) printf("file opened\n");
   image.getline(type, 128);
   image.getline(tmp, 128);
-  cout << tmp << endl;
   while (tmp[0]== '#') image.getline(tmp, 128);
   sscanf(tmp, "%d %d\n", &sx, &sy);
   printf( "%d %d\n", sx, sy);
