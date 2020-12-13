@@ -14,17 +14,17 @@ using namespace std;
 
 
 void read_test_batch(
-  string    image_in,
+  fstream    & image,
   int       num_image,
   int       classe[1],
   double    image_out[IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2][WEIGHT_1_NUM]
 ){
-  fstream image;
-  string im_out = "Results/img_out_";
-  im_out += to_string(num_image);
-  im_out += ".ppm";
-  ofstream simg_out(im_out);
-  image.open(image_in);
+  // fstream image;
+  // string im_out = "Results/img_out_";
+  // im_out += to_string(num_image);
+  // im_out += ".ppm";
+  // ofstream simg_out(im_out);
+  // image.open(image_in);
 
   int pointer = 3073 * num_image ;
   string clss;
@@ -37,10 +37,10 @@ void read_test_batch(
 
 
   if (image.is_open()){
-    while (cntr - 1 < pointer) {
-      getline(image, clss);
-      cntr++;
-    }
+    // while (cntr - 1 < pointer) {
+    //   getline(image, clss);
+    //   cntr++;
+    // }
     getline(image, clss);
     stringstream(clss) >> classe[0];
     for (int l = 0; l < 3; l++){
@@ -58,15 +58,15 @@ void read_test_batch(
         }
       }
     }
-    simg_out << "P3" << endl;
-    simg_out << 32 << " ";
-    simg_out << 32 << endl;
-    simg_out << 255 << endl;
-    for(int i=0; i< 32*32*3;i++)
-    {
-     simg_out << img_out[i] << endl;
-    }
-    image.close();
-    simg_out.close();
+    // simg_out << "P3" << endl;
+    // simg_out << 32 << " ";
+    // simg_out << 32 << endl;
+    // simg_out << 255 << endl;
+    // for(int i=0; i< 32*32*3;i++)
+    // {
+    //  simg_out << img_out[i] << endl;
+    // }
+    //image.close();
+    // simg_out.close();
   }
 }

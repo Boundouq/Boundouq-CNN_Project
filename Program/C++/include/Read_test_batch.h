@@ -12,7 +12,7 @@
 using namespace std;
 
 void read_test_batch(
-  string    image_in,
+  fstream    & image,
   int       num_image,
   int       classe[1],
   double    image_out[IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2][WEIGHT_1_NUM]

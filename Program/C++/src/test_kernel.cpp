@@ -13,7 +13,7 @@
 #include "Reshape.h"
 #include "Perception.h"
 
-#define NB_IMAGE 1000
+#define NB_IMAGE 10000
 
 using namespace std;
 
@@ -37,6 +37,8 @@ int main(int argc, char **argv) {
   string image_ppm;
   image_ppm = "Image_0_3.ppm";
   string image = "test_batch.txt";
+  fstream file;
+  file.open(image);
   int classe[1];
   double pass_1 = 0.0;
   double pass_2 = 0.0;
@@ -58,8 +60,9 @@ int main(int argc, char **argv) {
   double perce_out[BIASE_4_NUM];
   for (int i = 0; i < NB_IMAGE; i++)
   {
-    read_test_batch(image,i,classe,image_in);
-    //cout << "classe: " << classe[0] << endl;
+    cout << i << endl;
+    read_test_batch(file,i,classe,image_in);
+    cout << "classe: " << classe[0] << endl;
     //read_image(image_ppm,image_in);
     normalization(image_in,norm_image);
     convolution_1(norm_image,weight_1_double,biase_1_double,conv_1_out);
@@ -81,7 +84,7 @@ int main(int argc, char **argv) {
       sort[c] = i;
       results[i] = -100;
     }
-    
+
     if (classe[0] == sort[0]) pass_1++;
     if (classe[0] == sort[1]) pass_2++;
     if (classe[0] == sort[2]) pass_3++;
@@ -95,6 +98,7 @@ int main(int argc, char **argv) {
     // }
     // cout << endl;
   }
+  file.close();
   pass_1 *= (100./NB_IMAGE*1);
   pass_2 *= (100./NB_IMAGE*1);
   pass_3 *= (100./NB_IMAGE*1);
