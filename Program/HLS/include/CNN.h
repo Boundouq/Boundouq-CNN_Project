@@ -8,8 +8,8 @@
 #include "CNN_TYPES.h"
 
 void cnn(
-  img_in_type image_in[IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2][WEIGHT_1_NUM],
-  s_type perce_out[BIASE_4_NUM]
+  d_type norm_image[WEIGHT_1_NUM][IMAGE_1_WIDTH][IMAGE_1_WIDTH],
+  d_type perce_out[BIASE_4_NUM]
 );
 
 

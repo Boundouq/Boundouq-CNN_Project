@@ -8,16 +8,18 @@
 using namespace std;
 
 void perception(
-  s_type tab_in[WEIGHT_4_NUM],
-  w_type weight_4_double[WEIGHT_4_NUM][BIASE_4_NUM],
-  b_type biase_4_double[BIASE_4_NUM],
-  s_type tab_out[BIASE_4_NUM]
+  d_type tab_in[WEIGHT_4_NUM],
+  c_type weight_4_double[WEIGHT_4_NUM][BIASE_4_NUM],
+  c_type biase_4_double[BIASE_4_NUM],
+  d_type tab_out[BIASE_4_NUM]
 ){
   s_type sum;
+  m_type mul;
   for(int i = 0; i < BIASE_4_NUM; i++){
     sum = 0;
     for (int j = 0; j < WEIGHT_4_NUM; j++){
-      sum += weight_4_double[j][i] * tab_in[j];
+      mul = weight_4_double[j][i] * tab_in[j];
+      sum += mul;
     }
     sum += biase_4_double[i];
     tab_out[i] = sum;

@@ -9,10 +9,10 @@
 using namespace std;
 
 void maxpool_1(
-  s_type tab_in[BIASE_1_NUM][IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2],
-  s_type tab_out[WEIGHT_2_NUM][IMAGE_2_WIDTH][IMAGE_2_WIDTH]
+  d_type tab_in[BIASE_1_NUM][IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2],
+  d_type tab_out[WEIGHT_2_NUM][IMAGE_2_WIDTH][IMAGE_2_WIDTH]
 ){
-  s_type val;
+  d_type val;
   for (int k = 0; k<BIASE_1_NUM; k++){
     int l = 1;
     for (int y = 0; y < IMAGE_2_WIDTH; y++){
@@ -52,10 +52,10 @@ void maxpool_1(
 }
 
 void maxpool_2(
-  s_type tab_in[BIASE_2_NUM][IMAGE_2_WIDTH - 2][IMAGE_2_WIDTH - 2],
-  s_type tab_out[WEIGHT_3_NUM][IMAGE_3_WIDTH][IMAGE_3_WIDTH]
+  d_type tab_in[BIASE_2_NUM][IMAGE_2_WIDTH - 2][IMAGE_2_WIDTH - 2],
+  d_type tab_out[WEIGHT_3_NUM][IMAGE_3_WIDTH][IMAGE_3_WIDTH]
 ){
-  s_type val;
+  d_type val;
   for (int k = 0; k<BIASE_2_NUM; k++){
     int l = 1;
     for (int y = 0; y < IMAGE_3_WIDTH; y++){
@@ -95,10 +95,10 @@ void maxpool_2(
 }
 
 void maxpool_3(
-  s_type tab_in[BIASE_3_NUM][IMAGE_3_WIDTH - 2][IMAGE_3_WIDTH - 2],
-  s_type tab_out[BIASE_3_NUM][MAXPOOL_SIZE][MAXPOOL_SIZE]
+  d_type tab_in[BIASE_3_NUM][IMAGE_3_WIDTH - 2][IMAGE_3_WIDTH - 2],
+  d_type tab_out[BIASE_3_NUM][MAXPOOL_SIZE][MAXPOOL_SIZE]
 ){
-  s_type val;
+  d_type val;
   for (int k = 0; k<BIASE_3_NUM; k++){
     int l = 0;
     for (int j = 0; j < IMAGE_3_WIDTH; j+=2){

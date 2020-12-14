@@ -13,7 +13,7 @@ using namespace std;
 
 void read_image(
   string    image_in,
-  img_in_type    image_out[IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2][WEIGHT_1_NUM]
+  int    image_out[IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2][WEIGHT_1_NUM]
 ){
   fstream image;
   image.open(image_in);
@@ -21,7 +21,7 @@ void read_image(
   int sx, sy;
   // ac_fixed<DATA_WIDTH,DATA_WIDTH,false,AC_RND_INF,AC_SAT> image_out[IMG_SIZE];
   // ac_fixed<DATA_WIDTH,DATA_WIDTH,false,AC_RND_INF,AC_SAT> img_out[IMG_SIZE];
-  img_in_type img_out[24*24*3];
+  int img_out[24*24*3];
  /*
  Lecture fichier entree
 */

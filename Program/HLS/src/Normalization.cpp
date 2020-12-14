@@ -12,13 +12,13 @@ using namespace std;
 #define SIZE (WEIGHT_1_NUM) * (IMAGE_1_WIDTH - 2) * (IMAGE_1_WIDTH - 2)
 
 void normalization(
-  img_in_type    image_in[IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2][WEIGHT_1_NUM],
-  img_out_type    image_out[WEIGHT_1_NUM][IMAGE_1_WIDTH][IMAGE_1_WIDTH]
+  int   image_in[IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2][WEIGHT_1_NUM],
+  d_type    image_out[WEIGHT_1_NUM][IMAGE_1_WIDTH][IMAGE_1_WIDTH]
 ){
-  sum_img_type sum = 0;
-  avg_img_type average = 0;
-  dev_img_type deviation = 0;
-  dev_img_type maxi = 0;
+  int sum = 0;
+  double average = 0;
+  double deviation = 0;
+  double maxi = 0;
   for (int y = 0; y < IMAGE_1_WIDTH; y++){
     image_out[0][0][y] = 0.0;
     image_out[0][IMAGE_1_WIDTH - 1][y] = 0.0;
@@ -44,11 +44,10 @@ void normalization(
     }
   }
 
-  //deviation = sqrt(deviation / (SIZE * 1));
+  deviation = sqrt(deviation / (SIZE * 1));
 
-  //maxi = max(deviation, 1/sqrt(SIZE * 1));
-  if(deviation> 1/sqrt(SIZE * 1)) maxi = deviation;
-  else maxi= 1/sqrt(SIZE * 1);
+  maxi = max(deviation, 1/sqrt(SIZE * 1));
+
   for (int  l = 0; l < WEIGHT_1_NUM; l++){
     for (int i = 0; i < IMAGE_1_WIDTH - 2; i++){
       image_out[l][i+1][0] = 0.0;
@@ -58,4 +57,5 @@ void normalization(
       }
     }
   }
+  cout << image_out[0][1][1] << endl;
 }

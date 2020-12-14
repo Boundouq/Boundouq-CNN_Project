@@ -17,7 +17,7 @@ void read_test_batch(
   fstream    & image,
   int       num_image,
   int       classe[1],
-  img_in_type    image_out[IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2][WEIGHT_1_NUM]
+  int    image_out[IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2][WEIGHT_1_NUM]
 ){
   // fstream image;
   // string im_out = "Results/img_out_";
@@ -31,7 +31,7 @@ void read_test_batch(
   string lum;
   double val;
 
-  img_in_type img_out [32*32*3];
+  int img_out [32*32*3];
   int cnt = -1;
   int cntr = 1;
 

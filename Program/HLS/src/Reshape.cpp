@@ -8,11 +8,11 @@
 using namespace std;
 
 void reshape(
-  s_type tab_in[BIASE_3_NUM][MAXPOOL_SIZE][MAXPOOL_SIZE],
-  s_type tab_out[WEIGHT_4_NUM]
+  d_type tab_in[BIASE_3_NUM][MAXPOOL_SIZE][MAXPOOL_SIZE],
+  d_type tab_out[WEIGHT_4_NUM]
 ){
   int index = -1;
-  s_type val;
+  d_type val;
   for(int c = 0; c < BIASE_3_NUM; c++){
     for(int i = 0; i < MAXPOOL_SIZE; i++){
       for(int j = 0; j < MAXPOOL_SIZE; j++){
