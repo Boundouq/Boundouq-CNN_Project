@@ -57,5 +57,5 @@ void normalization(
       }
     }
   }
-  cout << image_out[0][1][1] << endl;
+  //cout << image_out[0][1][1] << endl;
 }

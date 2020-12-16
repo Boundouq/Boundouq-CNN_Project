@@ -46,16 +46,16 @@ void convolution_2(
   for (int c = 0; c < BIASE_2_NUM; c++){
     for (int i = 0; i < IMAGE_2_WIDTH - 2; i++){
       for (int j = 0; j < IMAGE_2_WIDTH - 2; j++){
-        sum= biase_2_double[c];
+        sum= 0;
         for (int l = 0; l < WEIGHT_2_NUM; l++){
           for (int m = 0; m < KERNEL_SIZE; m++){
             for (int n = 0; n < KERNEL_SIZE; n++){
-              mul= image_in[l][i+m][j+n] * weight_1_double[n][m][l][c];
+              mul= image_in[l][i+m][j+n] * weight_2[n][m][l][c];
               sum+= mul;
             }
           }
         }
-        sum+= biase_1_double[c];
+        sum+= biase_2[c];
         if (sum< 0) sum= 0;
         image_out[c][i][j] = sum;
       }
@@ -74,16 +74,16 @@ void convolution_3(
   for (int c = 0; c < BIASE_3_NUM; c++){
     for (int i = 0; i < IMAGE_3_WIDTH - 2; i++){
       for (int j = 0; j < IMAGE_3_WIDTH - 2; j++){
-        sum= biase_3_double[c];
+        sum= 0;
         for (int l = 0; l < WEIGHT_3_NUM; l++){
           for (int m = 0; m < KERNEL_SIZE; m++){
             for (int n = 0; n < KERNEL_SIZE; n++){
-              mul= image_in[l][i+m][j+n] * weight_1_double[n][m][l][c];
+              mul= image_in[l][i+m][j+n] * weight_3[n][m][l][c];
               sum+= mul;
             }
           }
         }
-        sum+= biase_1_double[c];
+        sum+= biase_3[c];
         if (sum< 0) sum= 0;
         image_out[c][i][j] = sum;
       }
