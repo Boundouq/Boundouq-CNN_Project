@@ -16,7 +16,7 @@
 
 #define CCS_MAIN main
 #define CCS_DESIGN(d) d
-#define NB_IMAGE 3
+#define NB_IMAGE 100
 
 using namespace std;
 
@@ -51,7 +51,7 @@ int CCS_MAIN(int argc, char **argv) {
 
     for (int i = 0; i < 10; i++){
       results[i] = perce_out[i];
-      cout << perce_out[i] << endl;
+      //cout << "perce "<<perce_out[i] << endl;
     }
     for (int c = 0; c < BIASE_4_NUM; c++){
       maxi = 0;
@@ -65,18 +65,18 @@ int CCS_MAIN(int argc, char **argv) {
     }
 
     if (classe[0] == sort[0]) pass_1++;
-    if (classe[0] == sort[1]) pass_2++;
-    if (classe[0] == sort[2]) pass_3++;
+    else if (classe[0] == sort[1]) pass_2++;
+    else if (classe[0] == sort[2]) pass_3++;
 
     // for (int i = 0; i < 10; i++){
     //   cout << perce_out[i] << " ";
     // }
     // cout << endl;
-    // for (int i = 0; i < 10; i++){
-    //   cout << sort[i] << " ";
-    // }
-    // cout << endl;
-  }
+  //   for (int i = 0; i < 10; i++){
+  //     cout << sort[i] << " ";
+  //   }
+  //   cout << endl;
+   }
   file.close();
   pass_1 *= (100./NB_IMAGE*1);
   pass_2 *= (100./NB_IMAGE*1);
