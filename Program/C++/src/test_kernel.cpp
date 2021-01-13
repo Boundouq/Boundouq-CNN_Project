@@ -13,7 +13,7 @@
 #include "Reshape.h"
 #include "Perception.h"
 
-#define NB_IMAGE 10000
+#define NB_IMAGE 1
 
 using namespace std;
 
@@ -89,10 +89,10 @@ int main(int argc, char **argv) {
     if (classe[0] == sort[1]) pass_2++;
     if (classe[0] == sort[2]) pass_3++;
 
-    // for (int i = 0; i < 10; i++){
-    //   cout << perce_out[i] << " ";
-    // }
-    // cout << endl;
+    for (int i = 0; i < 10; i++){
+      cout << perce_out[i] << " ";
+    }
+    cout << endl;
     // for (int i = 0; i < 10; i++){
     //   cout << sort[i] << " ";
     // }

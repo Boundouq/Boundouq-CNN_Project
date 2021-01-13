@@ -21,11 +21,9 @@ def convert2array(fichier,taille):
     f.close()
     return tab
 
-#print(convert2array("Desktop/matrice.txt"))
-
 #fonction maxpool, on lui donne en param le tableau qu'on vient de convertir et aussi le nom du fichier ou on veut écrire
 def maxpool(tableau3D,nom_fichier):
-    f = open(nom_fichier,"w")
+    #f = open(nom_fichier,"w")
     dim3 = len(tableau3D)
     dim2 = len(tableau3D[0])
     dim1 = len(tableau3D[0][0])
@@ -63,45 +61,25 @@ def maxpool(tableau3D,nom_fichier):
                 for y in range (v_dim):
                     tab_sortie[k][v_dim - 1][y] = 0.0
 
-    for y in range(dim3):
-        for i in range(v_dim):
-            for j in range(v_dim):
-                f.write(str(tab_sortie[y][i][j]) + ' ')
-            f.write('\n')
-        f.write('\n')
-    f.close()
+    #for y in range(dim3):
+    #    for i in range(v_dim):
+    #        for j in range(v_dim):
+    #            f.write(str(tab_sortie[y][i][j]) + ' ')
+    #        f.write('\n')
+    #    f.write('\n')
+    #f.close()
     return tab_sortie
-
-#test
-#tab = convert2array("matrice.txt",64)
-#matrice.txt fichier txt à la sortie de la conversion
-#print(tab)
-#tab2 = maxpool(tab,"max.txt")
-#max.txt sera le fichier d'écriture à la sortie de maxpool
-#print(tab2)
-
-
-
-#c= max(tab[0][0][0],tab[0][0][1],tab[0][0][2],tab[0][1][0],tab[0][1][1],tab[0][1][2],tab[0][2][0],tab[0][2][1],tab[0][2][2])
-#print(c)
-
 
 # fonction qui tranforme un fichier texte de la matrice à la sortie du maxpool 3*3*20 en vecteur de taille 180
 def reshapee(tab):
     # f = open(fichier,"r")
-    # tab = []
+    l = np.zeros(3*3*20)
     #
-    # for k in range(20):
-    #     for j in range(3):
-    #         s= f.readline()
-    #         l = []
-    #         #if (j!= 0 and j!=4):
-    #         l= s.split()
-    #             #l= l[1:4]
-    #         for elm in l :
-    #             tab.append(float(elm))
-    #     f.readline()
-    return tab.reshape(180)
+    for i in range(3):
+        for j in range(3):
+            for k in range(20):
+                l[k + i*3*20 + j*20]=tab[k][i][j]
+    return l
 
 # Get kernel matrix (biases and weights), for convolution nember "stage"
 def get_coeff(kernel, stage, B, W):
@@ -158,32 +136,20 @@ def fully_conn(matrice,vect,bias):
         conn.append(list[i] + bias[i])
         sum += exp(conn[i])
     ###
-    for i in range (10):
-        prov.append(exp(conn[i]) / sum)
-        c += prov[i]
-    print ("SoftMax : " + str(prov))
-    print ("Sum SoftMax " +str(c))
-    tab = []
-    for elm in prov:
-        tab.append(elm)
-    t = []
-    for i in range (9):
-        a = float(max(tab))
-        t.append(tab.index(a))
-        tab[tab.index(a)] = -100
-    print ("Ordre SM : " + str(t))
+    # for i in range (10):
+    #     prov.append(exp(conn[i]) / sum)
+    #     c += prov[i]
+    # print ("SoftMax : " + str(prov))
+    # print ("Sum SoftMax " +str(c))
+    # tab = []
+    # for elm in prov:
+    #     tab.append(elm)
+    # t = []
+    # for i in range (9):
+    #     a = float(max(tab))
+    #     t.append(tab.index(a))
+    #     tab[tab.index(a)] = -100
+    # print ("Ordre SM : " + str(t))
     ###
     #mat = np.dot(vect,matrice)
     return (conn)
-
-
-#test
-#tabu = reshapee("reshape.txt")
-#sortie = fully_conn("180.txt",tabu)
-#print(sortie)
-
-
-#reshape.txt sera le fichier de sortie du dernier maxpool donc 3*3*20
-#on va le convertir en vecteur de taille 180
-#180.txt sera la matrice de multiplication
-#multiplier la matrice par le vecteur

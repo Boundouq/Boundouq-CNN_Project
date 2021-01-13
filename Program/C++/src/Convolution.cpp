@@ -21,7 +21,7 @@ void convolution_1(
         for (int l = 0; l < WEIGHT_1_NUM; l++){
           for (int m = 0; m < KERNEL_SIZE; m++){
             for (int n = 0; n < KERNEL_SIZE; n++){
-              s += image_in[l][i+m][j+n] * weight_1_double[n][m][l][c];
+              s += image_in[l][i+m][j+n] * weight_1_double[m][n][l][c];
             }
           }
         }
@@ -46,7 +46,7 @@ void convolution_2(
         for (int l = 0; l < WEIGHT_2_NUM; l++){
           for (int m = 0; m < KERNEL_SIZE; m++){
             for (int n = 0; n < KERNEL_SIZE; n++){
-              s += image_in[l][i+m][j+n] * weight_2_double[n][m][l][c];
+              s += image_in[l][i+m][j+n] * weight_2_double[m][n][l][c];
             }
           }
         }
@@ -71,7 +71,7 @@ void convolution_3(
         for (int l = 0; l < WEIGHT_3_NUM; l++){
           for (int m = 0; m < KERNEL_SIZE; m++){
             for (int n = 0; n < KERNEL_SIZE; n++){
-              s += image_in[l][i+m][j+n] * weight_3_double[n][m][l][c];
+              s += image_in[l][i+m][j+n] * weight_3_double[m][n][l][c];
             }
           }
         }

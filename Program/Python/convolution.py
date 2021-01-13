@@ -99,19 +99,21 @@ def get_matrix(image_matrix, stage, X,image_out):
 #####################################################################################
 
 # Calculate convolution
-def convolution(image, stage, kernl, bias, B,X):
+def convolution(image, stage, kernl, bias, B,X,W):
     out = []
     for c in range (B[stage]):
         co = []
         for i in range (0, X[stage]):
             li = []
             for j in range (0, X[stage]):
-                s = bias[c]
-                for l in range (3):
+                s = 0
+                for l in range (W[stage]):
                     for m in range (3):
                         for n in range (3):
-                            s += image[l][i+m][j+n] * kernl[n][m][l][c]
+                            s += image[l][i+m][j+n] * kernl[m][n][l][c]
+
                 # RELU
+                s += bias[c]
                 s = max(0,s)
 
                 li.append(s)

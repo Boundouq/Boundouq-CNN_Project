@@ -58,8 +58,6 @@ def normalize(image):
                 for j in range(0, 32):
                     if j > 3 and j < 28:
                         a = int.from_bytes(image.read(1), byteorder='big')
-                        if i == 4 and j == 4:
-                            print(a)
                         assert a <= 255
                         l.append(a)
                         n_l.append(a)
@@ -79,7 +77,7 @@ def normalize(image):
         for i in range(1, 25):
             for j in range(1, 25):
                 sum += nor_list[l][i][j]
-    print(sum)
+    #print(sum)
     average = sum / size
 
     # Calculate standard
@@ -87,9 +85,9 @@ def normalize(image):
         for i in range(1, 25):
             for j in range(1, 25):
                 deviation += (nor_list[l][i][j] - average) ** 2
-    print(deviation)
+    #print(deviation)
     deviation = sqrt(deviation / size)
-    print(deviation)
+    #print(deviation)
     # Normalization
     for l in range(3):
         for i in range(1, 25):
