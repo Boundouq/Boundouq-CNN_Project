@@ -17,4 +17,9 @@ typedef ac_fixed<COEFF_WIDTH,3,true,AC_RND_INF,AC_SAT> c_type ;
 typedef ac_fixed<COEFF_WIDTH+COEFF_WIDTH+1,DATA_WIDTH+3,true> m_type ;
 typedef ac_fixed<DATA_WIDTH + COEFF_WIDTH+HEADROOM,DATA_WIDTH+HEADROOM+3,true> s_type ;
 
+// typedef double d_type ;
+// typedef double c_type ;
+// typedef double m_type ;
+// typedef double s_type ;
+
 #endif

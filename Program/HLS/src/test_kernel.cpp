@@ -11,14 +11,26 @@
 #include "CNN.h"
 #include "ac_fixed.h"
 
-// #include "mc_scverify.h"
-
-
 #define CCS_MAIN main
 #define CCS_DESIGN(d) d
 #define NB_IMAGE 100
 
 using namespace std;
+
+vector<string> split (string s, string delimiter) {
+    size_t pos_start = 0, pos_end, delim_len = delimiter.length();
+    string token;
+    vector<string> res;
+
+    while ((pos_end = s.find (delimiter, pos_start)) != string::npos) {
+        token = s.substr (pos_start, pos_end - pos_start);
+        pos_start = pos_end + delim_len;
+        res.push_back (token);
+    }
+
+    res.push_back (s.substr (pos_start));
+    return res;
+}
 
 int CCS_MAIN(int argc, char **argv) {
   cout << "begin test" << endl;
@@ -27,14 +39,13 @@ int CCS_MAIN(int argc, char **argv) {
   string image = "test_batch.txt";
   fstream file;
   file.open(image);
-  if (file.is_open()) cout << "file is open" << endl;
   int classe[1];
   double pass_1 = 0.0;
   double pass_2 = 0.0;
   double pass_3 = 0.0;
   d_type maxi = 0;
   d_type results [10];
-  int sort [10];
+  int sort[10];
 
   int image_in[IMAGE_1_WIDTH - 2][IMAGE_1_WIDTH - 2][WEIGHT_1_NUM];
   d_type norm_image[WEIGHT_1_NUM][IMAGE_1_WIDTH][IMAGE_1_WIDTH];
@@ -43,21 +54,17 @@ int CCS_MAIN(int argc, char **argv) {
   {
     cout << i << endl;
     read_test_batch(file,i,classe,image_in);
-    normalization(image_in,norm_image);
-    //cout << "classe: " << classe[0] << endl;
+    cout << "classe: " << classe[0] << endl;
     //read_image(image_ppm,image_in);
-    //cnn(image_in,perce_out);
+    normalization(image_in,norm_image);
     CCS_DESIGN(cnn)(norm_image, perce_out) ;
 
     for (int i = 0; i < 10; i++){
-      results[i] = perce_out[i];
-      //cout << "perce "<<perce_out[i] << endl;
+      results[i] =  perce_out[i];
+    //cout <<perce_out[i]<< endl;
     }
     for (int c = 0; c < BIASE_4_NUM; c++){
-      maxi = 0;
-      for(int i =0; i< BIASE_4_NUM; i++){
-        if(maxi < results[i]) maxi = results[i];
-      }
+      maxi = *std::max_element(results,results+10);
       int i = 0;
       while(maxi != results[i]) i++;
       sort[c] = i;
@@ -65,18 +72,18 @@ int CCS_MAIN(int argc, char **argv) {
     }
 
     if (classe[0] == sort[0]) pass_1++;
-    else if (classe[0] == sort[1]) pass_2++;
-    else if (classe[0] == sort[2]) pass_3++;
+    if (classe[0] == sort[1]) pass_2++;
+    if (classe[0] == sort[2]) pass_3++;
 
     // for (int i = 0; i < 10; i++){
     //   cout << perce_out[i] << " ";
     // }
     // cout << endl;
-  //   for (int i = 0; i < 10; i++){
-  //     cout << sort[i] << " ";
-  //   }
-  //   cout << endl;
-   }
+    // for (int i = 0; i < 10; i++){
+    //   cout << sort[i] << " ";
+    // }
+    // cout << endl;
+  }
   file.close();
   pass_1 *= (100./NB_IMAGE*1);
   pass_2 *= (100./NB_IMAGE*1);

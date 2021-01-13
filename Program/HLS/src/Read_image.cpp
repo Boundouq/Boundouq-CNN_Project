@@ -21,7 +21,7 @@ void read_image(
   int sx, sy;
   // ac_fixed<DATA_WIDTH,DATA_WIDTH,false,AC_RND_INF,AC_SAT> image_out[IMG_SIZE];
   // ac_fixed<DATA_WIDTH,DATA_WIDTH,false,AC_RND_INF,AC_SAT> img_out[IMG_SIZE];
-  int img_out[24*24*3];
+  double img_out[24*24*3];
  /*
  Lecture fichier entree
 */

@@ -12,7 +12,7 @@
 
 using namespace std;
 
-#pragma hls_design top
+ #pragma hls_design top
 
 void cnn(
   d_type norm_image[WEIGHT_1_NUM][IMAGE_1_WIDTH][IMAGE_1_WIDTH],
@@ -26,7 +26,6 @@ void cnn(
   d_type conv_3_out[BIASE_3_NUM][IMAGE_3_WIDTH - 2][IMAGE_3_WIDTH - 2];
   d_type maxp_3_out[BIASE_3_NUM][MAXPOOL_SIZE][MAXPOOL_SIZE];
   d_type resh_out[WEIGHT_4_NUM];
-
   convolution_1(norm_image,weight_1_double,biase_1_double,conv_1_out);
   maxpool_1(conv_1_out, maxp_1_out);
   convolution_2(maxp_1_out,weight_2_double,biase_2_double,conv_2_out);

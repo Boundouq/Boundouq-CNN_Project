@@ -4,6 +4,8 @@
 #ifndef __KERNEL_H__
 #define __KERNEL_H__
 
+#include "CNN_TYPES.h"
+
 #define KERNEL_SIZE 3
 #define WEIGHT_1_NUM 3
 #define BIASE_1_NUM 64
@@ -19,8 +21,6 @@
 #define IMAGE_3_WIDTH 8
 
 #define MAXPOOL_SIZE 3
-
-#include "CNN_TYPES.h"
 
 static c_type biase_1_double[BIASE_1_NUM] = {
   -0.96178979, -0.23917986, -0.23212402, -0.2245342,  -1.71852744, -0.25244606,

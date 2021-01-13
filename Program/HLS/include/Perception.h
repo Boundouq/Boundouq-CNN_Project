@@ -5,7 +5,6 @@
 #define __PERCEPTION_H__
 
 #include "KERNEL.h"
-#include "CNN_TYPES.h"
 
 void perception(
   d_type tab_in[WEIGHT_4_NUM],
