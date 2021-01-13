@@ -30,9 +30,10 @@ image_source = open("Python/data/test_batch.bin", "rb")
 kernel = open('Python/data/CNN_coeff_3x3.txt', "r")
 
 for IMAGE_NUM in range(NUM):
+    print(IMAGE_NUM)
     image_source.read(IMAGE_NUM * 3073 )
     classe = int.from_bytes(image_source.read(1), byteorder='big')
-    print ("classe " +str(classe))
+    #print ("classe " +str(classe))
     #matrix = open(image_matrix, 'r')
 
 
@@ -172,7 +173,7 @@ for IMAGE_NUM in range(NUM):
         a = float(max(tab))
         t.append(tab.index(a))
         tab[tab.index(a)] = -100
-    print (t)
+    #print (t)
 
 
 
