@@ -1,4 +1,4 @@
-def normalize():
+def extract():
     image_source = open("data/test_batch.bin", "rb")
     image_out = open("data/test_batch.txt", "w")
     for i in range (30730000):    
@@ -9,4 +9,4 @@ def normalize():
     image_source.close
  
 
-normalize()
+extract()
