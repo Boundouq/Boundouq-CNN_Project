@@ -5,15 +5,21 @@
 import png
 from math import sqrt
 #import numpy as np
+from PIL import Image
 
 # The number of the picture that we will normalize
-#IMAGE_NUM = 5
+#IMAGE_NUM = 9
+
+#image_source = open("Python/data/test_batch.bin", "rb")
+
+#image_source.read(IMAGE_NUM * 3073 )
+#classe = int.from_bytes(image_source.read(1), byteorder='big')
+#print ("classe " +str(classe))
 
 # Output files
-#image_name = 'Ima_' + str(IMAGE_NUM) + '.png'
-#image_matrix = 'Normalization_Image_' + str(IMAGE_NUM) + '.txt'
+#image_name = 'Image_' + str(IMAGE_NUM) + '_' + str(classe) + '.png'
+#image_matrix = 'Normalization_Image_' + str(IMAGE_NUM) + '.h'
 
-#image_source = open("image.bin", "rb")
 
 # Read the picture number IMAGE_NUM
 #image_source.read(IMAGE_NUM * 3073 + 1)
@@ -128,12 +134,24 @@ def RGB_image(lred, lnon_red, lgreen, lnon_green, lblue, lnon_blue):
 # Create normalized image matrix
 def matrix(image_matrix, rgb_list):
     m = open(image_matrix, "w")
+    m.write('#ifndef _IMG0_H_ \n#define _IMG0_H_ \n#include "KERNEL.h" \nstatic d_type norm_image[WEIGHT_1_NUM][IMAGE_1_WIDTH][IMAGE_1_WIDTH] =')
+    m.write('{')
     for y in range(0, 3):
+        m.write('{')
         for i in range(0, 26):
+            m.write('{')
             for j in range(0, 26):
-                m.write(str(rgb_list[y][i][j]) + ' ')
-            m.write('\n')
-        m.write('\n')
+                if(j!=25):
+                    m.write(str(rgb_list[y][i][j]) + ',')
+                else:
+                    m.write(str(rgb_list[y][i][j]))
+            m.write('}')
+            if(i!=25):
+                m.write(',')
+        m.write('}')
+        if(y!=2):
+            m.write(',')
+    m.write('}; \n#endif')
     m.close()
 
 ####################################################################################
@@ -148,12 +166,42 @@ def image(image_name, n_rgb):
 ####################################################################################
 
 
-#normalize(image_source, red, non_red)
-#normalize(image_source, green, non_green)
-#normalize(image_source, blue, non_blue)
+#red, non_red, green, non_green, blue, non_blue  = normalize(image_source)
+#rgb, non_rgb = RGB_image(red, non_red, green, non_green, blue, non_blue)
 
-#RGB_image(red, non_red, green, non_green, blue, non_blue, rgb, non_rgb)
 
-#matrix(image_matrix, rgb)
+##matrix(image_matrix, rgb)
 
 #image(image_name, non_rgb)
+
+#image = Image.open(image_name)
+#st = 'Image_' + str(IMAGE_NUM) + '_' + str(classe) + '.pgm'
+#cla = 'truck.ppm'
+#out = 'resized_image_' +  str(IMAGE_NUM) + '.h'
+
+#new_image = image.resize((320, 320))
+#new_image.save(str)
+
+#print(image.size) # Output: (1920, 1280)
+#print(new_image.size) # Output: (400, 400)
+
+#img = open(st, "r")
+#img.readline()
+#img.readline()
+#img.readline()
+#img.readline()
+
+#m = open(out, "w")
+#m.write(str(classe)+',')
+
+#m.write("static i_type resized_image [24*24] = {")
+
+#for i in range (0,576):
+#    s = img.readline()
+#    s = s.split('\n')
+#    if (i != 575):
+#        s[0] += ','
+#    m.write(s[0])
+#m.write("};")
+#m.close()
+

@@ -11,7 +11,7 @@ from math import sqrt
 import numpy as np
 
 # The number of the picture that we will normalize
-NUM = 10000
+NUM = 11
 
 # Convolution stage between 0 and 2
 STAGE = 5
@@ -33,7 +33,7 @@ for IMAGE_NUM in range(NUM):
     print(IMAGE_NUM)
     image_source.read(IMAGE_NUM * 3073 )
     classe = int.from_bytes(image_source.read(1), byteorder='big')
-    #print ("classe " +str(classe))
+    print ("classe " +str(classe))
     #matrix = open(image_matrix, 'r')
 
 
@@ -90,7 +90,7 @@ for IMAGE_NUM in range(NUM):
     #normalization.matrix(image_matrix,rgb)
 
     # Create non-normalized image
-    #normalization.image(image_name,non_rgb)
+    normalization.image(image_name,non_rgb)
 
     #####################################################################################
 
@@ -163,7 +163,7 @@ for IMAGE_NUM in range(NUM):
     # Fully connected
     result = maxpool.fully_conn(weights_f, vecteur,biases_f)
 
-    #print(result)
+    print(result)
 
     tab = []
     for elm in result:
@@ -173,7 +173,7 @@ for IMAGE_NUM in range(NUM):
         a = float(max(tab))
         t.append(tab.index(a))
         tab[tab.index(a)] = -100
-    #print (t)
+    print (t)
 
 
 
